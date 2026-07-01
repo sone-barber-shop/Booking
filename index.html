@@ -1,0 +1,690 @@
+<index.html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SATU . SATU - Coffee & Comfort</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Plus Jakarta Sans & DM Sans -->
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: '#f3ede3',
+            brandgreen: '#00311e',
+            mintbg: '#e5ece8',
+            darkgray: '#222222',
+            cardred: '#aa2a2a',
+            cardgold: '#b1812a',
+            cardcharcoal: '#2e3a34',
+          },
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            dmsans: ['DM Sans', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  
+  <style>
+    /* Mengikuti aesthetic vertical text sidebar dari gambar */
+    .vertical-text {
+      writing-mode: vertical-lr;
+      transform: rotate(180deg);
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    /* Efek garis diagonal di panel detail */
+    .diagonal-stripes {
+      background: repeating-linear-gradient(
+        -45deg,
+        #00311e,
+        #00311e 20px,
+        #05442b 20px,
+        #05442b 40px
+      );
+    }
+  </style>
+</head>
+<body class="bg-slate-100 font-sans min-h-screen flex items-center justify-center p-0 md:p-6 overflow-x-hidden">
+
+  <!-- FRAME CONTAINER UTAMA (Desktop: Berdampingan, Mobile: Slide-in Transition) -->
+  <div class="relative w-full max-w-4xl bg-[#f8f5f0] shadow-2xl rounded-none md:rounded-[3rem] overflow-hidden flex flex-col md:flex-row h-screen md:h-[850px] border border-gray-200">
+    
+    <!-- ==================== SCREEN 1: KATALOG UTAMA (Kiri) ==================== -->
+    <div id="screen-catalog" class="w-full md:w-1/2 flex flex-col h-full bg-[#f8f5f0] relative z-10 transition-transform duration-300">
+      
+      <!-- Top Header -->
+      <header class="px-6 pt-8 pb-4 flex justify-between items-center bg-transparent">
+        
+        <!-- Shopping Bag Icon (Hanya muncul jika ada pesanan) -->
+        <div class="w-10 h-10">
+          <button id="cart-btn-header" onclick="openCartDrawer()" class="hidden w-10 h-10 rounded-xl bg-white shadow-sm flex items-center justify-center text-brandgreen hover:scale-105 transition relative">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+            </svg>
+            <span id="cart-badge" class="absolute -top-1.5 -right-1.5 bg-red-600 text-white text-[10px] font-extrabold px-1.5 py-0.5 rounded-full">0</span>
+          </button>
+        </div>
+
+        <!-- Brand Name (Logo Kiri Telah Dihapus) -->
+        <div class="flex items-center">
+          <span class="font-dmsans font-extrabold tracking-widest text-brandgreen text-xl">SATU . SATU</span>
+        </div>
+
+        <!-- Logo Kanan dengan Latar Belakang Hijau Tua Bulat -->
+        <div class="w-12 h-12 rounded-full p-1 bg-brandgreen border-2 border-white shadow-md flex items-center justify-center overflow-hidden">
+          <img src="https://upld.zone.id/uploads/vxir5xiq/img-0678.webp" alt="Logo Brand" class="w-full h-full object-cover rounded-full">
+        </div>
+      </header>
+
+      <!-- Search Section & Slogan -->
+      <div class="px-6 py-2">
+        <h2 class="text-2xl font-bold font-dmsans text-brandgreen leading-tight">Skip the line, order now.</h2>
+        <div class="flex items-center justify-between text-xs text-gray-500 mt-1">
+          <span class="flex items-center gap-1">
+            <svg class="w-3 h-3 text-brandgreen" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg>
+            Satu . Satu HQ, Tarakan
+          </span>
+          <button class="text-brandgreen hover:scale-105 transition">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Catalog Area (Vertical Sidebar + Card Grid) -->
+      <div class="flex-1 flex overflow-hidden mt-4">
+        
+        <!-- Sidebar Navigation (Aesthetic Rotated Tabs) -->
+        <div class="w-16 flex flex-col items-center py-4 bg-mintbg rounded-tr-[2.5rem] rounded-br-[2.5rem] justify-start gap-12 overflow-y-auto no-scrollbar shadow-sm">
+          <div class="text-[10px] uppercase tracking-widest font-bold text-brandgreen opacity-40">Kategori</div>
+          <div id="rotated-tabs-container" class="flex flex-col gap-12 items-center">
+            <!-- Di-render oleh JavaScript -->
+          </div>
+        </div>
+
+        <!-- Scrollable Cards Grid -->
+        <div class="flex-1 overflow-y-auto px-6 pb-24 no-scrollbar" id="catalog-list-container">
+          <!-- Di-render oleh JavaScript -->
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ==================== SCREEN 2: DETAIL & KUSTOMISASI (Kanan) ==================== -->
+    <div id="screen-detail" class="fixed inset-y-0 right-0 w-full md:relative md:w-1/2 bg-mintbg flex flex-col h-full z-20 transform translate-x-full md:translate-x-0 transition-transform duration-300 border-l border-gray-100">
+      
+      <!-- Detail Screen Header -->
+      <header class="px-6 pt-8 pb-4 flex justify-between items-center bg-transparent relative z-30">
+        <button onclick="closeDetailScreenMobile()" class="md:hidden w-10 h-10 rounded-xl bg-white shadow-sm flex items-center justify-center text-brandgreen hover:scale-105 transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg>
+        </button>
+        <span class="font-dmsans font-extrabold tracking-widest text-white md:text-brandgreen text-lg mx-auto md:ml-0">SATU . SATU</span>
+        <div class="w-10 h-10 hidden md:block"></div> <!-- Spacer -->
+      </header>
+
+      <!-- Empty State (Jika belum ada item yang diklik) -->
+      <div id="detail-empty-state" class="hidden md:flex flex-col items-center justify-center flex-1 text-center p-8 text-brandgreen/60">
+        <svg class="w-16 h-16 opacity-40 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+        <p class="font-medium text-sm">Pilih menu di katalog untuk melakukan kustomisasi & pemesanan</p>
+      </div>
+
+      <!-- Detail Content -->
+      <div id="detail-active-content" class="flex-1 flex flex-col h-full overflow-hidden hidden">
+        
+        <!-- Diagonal Stripe Pattern Card with Overflowing Cup -->
+        <div class="relative h-56 diagonal-stripes mx-6 rounded-[2.5rem] flex items-center justify-center overflow-visible shadow-md">
+          <div class="absolute -bottom-10 w-44 h-44 flex items-center justify-center z-10 drop-shadow-2xl">
+            <img id="detail-item-img" src="" alt="Detail Drink" class="w-36 h-36 object-cover rounded-full border-4 border-white shadow-lg">
+          </div>
+        </div>
+
+        <!-- Customizer Form Card -->
+        <div class="flex-1 bg-[#f8f5f0] mt-16 rounded-t-[3rem] p-6 flex flex-col justify-between shadow-inner">
+          <div class="overflow-y-auto no-scrollbar space-y-4 pb-4">
+            <div class="flex justify-between items-start">
+              <div>
+                <span class="text-[10px] font-extrabold tracking-widest text-brandgreen/60 uppercase block" id="detail-item-category">Signature</span>
+                <h3 class="text-xl font-bold font-dmsans text-brandgreen mt-0.5" id="detail-item-name">Nama Menu</h3>
+              </div>
+              <span id="detail-item-status-badge" class="px-3 py-1 rounded-full text-[10px] font-extrabold tracking-wide uppercase">Tersedia</span>
+            </div>
+
+            <!-- Customizer Selectors -->
+            <div class="space-y-3">
+              <!-- Suhu Dropdown (Khusus Minuman) -->
+              <div id="detail-temp-group">
+                <label class="block text-xs font-bold text-brandgreen/70 mb-1">Penyajian (Suhu)</label>
+                <div class="relative">
+                  <select id="detail-temp-select" class="w-full bg-mintbg/50 text-brandgreen font-bold text-sm px-4 py-3 rounded-2xl border border-brandgreen/10 appearance-none focus:outline-none focus:ring-1 focus:ring-brandgreen">
+                    <option value="Ice">❄️ Dingin (Ice)</option>
+                    <option value="Hot">🔥 Panas (Hot)</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-4 flex items-center"><svg class="w-4 h-4 text-brandgreen" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg></div>
+                </div>
+              </div>
+
+              <!-- Nomor Meja Dropdown -->
+              <div>
+                <label class="block text-xs font-bold text-brandgreen/70 mb-1">Nomor Kursi / Meja</label>
+                <div class="relative">
+                  <select id="detail-table-select" class="w-full bg-mintbg/50 text-brandgreen font-bold text-sm px-4 py-3 rounded-2xl border border-brandgreen/10 appearance-none focus:outline-none focus:ring-1 focus:ring-brandgreen">
+                    <option value="" disabled selected>Pilih Nomor Kursi (1-20)</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-4 flex items-center"><svg class="w-4 h-4 text-brandgreen" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg></div>
+                </div>
+              </div>
+
+              <!-- Catatan Pesanan -->
+              <div>
+                <label class="block text-xs font-bold text-brandgreen/70 mb-1">Catatan Tambahan</label>
+                <input type="text" id="detail-note" placeholder="Es dikurangi, gula sedikit, dsb..." class="w-full bg-mintbg/50 text-brandgreen text-sm px-4 py-3 rounded-2xl border border-brandgreen/10 placeholder-brandgreen/40 focus:outline-none focus:ring-1 focus:ring-brandgreen">
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Action Bar (Quantity + Price + Order Button) -->
+          <div class="border-t border-brandgreen/10 pt-4 flex items-center justify-between gap-4">
+            <!-- Counter -->
+            <div class="flex items-center bg-mintbg/50 rounded-2xl p-1 border border-brandgreen/10">
+              <button onclick="adjustDetailQty(-1)" class="w-8 h-8 rounded-xl bg-white flex items-center justify-center text-brandgreen font-extrabold shadow-sm hover:scale-105 transition">-</button>
+              <span id="detail-qty-value" class="w-8 text-center font-bold text-brandgreen text-sm">1</span>
+              <button onclick="adjustDetailQty(1)" class="w-8 h-8 rounded-xl bg-white flex items-center justify-center text-brandgreen font-extrabold shadow-sm hover:scale-105 transition">+</button>
+            </div>
+            
+            <div class="text-right">
+              <span class="text-[9px] font-bold text-brandgreen/50 block">TOTAL HARGA</span>
+              <span id="detail-total-price" class="font-extrabold text-lg text-brandgreen">Rp 0</span>
+            </div>
+
+            <!-- Main Button -->
+            <button id="add-to-cart-btn" onclick="addActiveItemToCart()" class="flex-1 bg-brandgreen hover:bg-emerald-950 text-cream font-bold py-3.5 px-4 rounded-2xl text-xs md:text-sm shadow-md transition transform active:scale-95">
+              Tambah Menu
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ==================== DRAWER: KERANJANG BELANJA (CART) & CHECKOUT ==================== -->
+    <div id="cart-drawer" class="absolute inset-y-0 left-0 w-full md:w-[450px] bg-[#f8f5f0] z-30 transform -translate-x-full transition-transform duration-300 shadow-2xl flex flex-col justify-between border-r border-gray-200">
+      
+      <!-- Drawer Header -->
+      <div class="p-6 border-b border-brandgreen/10 flex justify-between items-center">
+        <h3 class="text-lg font-extrabold font-dmsans text-brandgreen flex items-center gap-2">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+          Keranjang Anda
+        </h3>
+        <button onclick="closeCartDrawer()" class="w-8 h-8 rounded-full bg-brandgreen/5 text-brandgreen flex items-center justify-center hover:bg-brandgreen/10 transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+      </div>
+
+      <!-- Scrollable Cart Items -->
+      <div class="flex-1 overflow-y-auto p-6 space-y-4 no-scrollbar">
+        <div id="cart-items-container" class="space-y-3">
+          <!-- Item Keranjang di-render dari JS -->
+        </div>
+
+        <!-- Opsi Pembayaran di dalam Keranjang -->
+        <div id="cart-checkout-details" class="pt-6 border-t border-brandgreen/10 space-y-4 hidden">
+          <div>
+            <label class="block text-xs font-bold text-brandgreen/70 mb-2">Metode Pembayaran</label>
+            <div class="grid grid-cols-2 gap-3">
+              <label class="flex flex-col items-center justify-center border-2 border-brandgreen/20 rounded-2xl py-3 px-2 cursor-pointer bg-white transition hover:border-brandgreen" id="pay-cash-btn">
+                <input type="radio" name="payment-method" value="Cash" class="sr-only" checked onchange="togglePaymentDisplay('Cash')">
+                <span class="text-xs font-bold text-brandgreen">💵 Tunai / Kasir</span>
+              </label>
+              <label class="flex flex-col items-center justify-center border-2 border-brandgreen/20 rounded-2xl py-3 px-2 cursor-pointer bg-white transition hover:border-brandgreen" id="pay-qris-btn">
+                <input type="radio" name="payment-method" value="QRIS" class="sr-only" onchange="togglePaymentDisplay('QRIS')">
+                <span class="text-xs font-bold text-brandgreen">📱 QRIS</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Panel QRIS -->
+          <div id="qris-panel" class="hidden flex flex-col items-center justify-center bg-white p-4 rounded-2xl border border-brandgreen/10 shadow-sm">
+            <p class="text-[10px] text-center text-brandgreen/80 font-bold mb-2">Scan QRIS SATU . SATU Di Bawah Ini:</p>
+            <div class="w-40 h-40 border border-gray-100 rounded-xl overflow-hidden flex items-center justify-center bg-gray-50">
+              <img src="https://upld.zone.id/uploads/vxir5xiq/img-0642.webp" alt="QRIS SATU . SATU" class="w-full h-full object-contain">
+            </div>
+            <p class="text-[9px] text-gray-500 text-center mt-2 italic">Screenshot / Simpan bukti bayar untuk kasir.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Drawer Bottom Summary & Button -->
+      <div class="p-6 border-t border-brandgreen/10 bg-[#f8f5f0] space-y-4">
+        <div class="flex justify-between items-center text-sm">
+          <span class="font-bold text-brandgreen/60">Subtotal</span>
+          <span id="cart-subtotal" class="font-extrabold text-brandgreen text-lg">Rp 0</span>
+        </div>
+        <button onclick="sendOrderToWhatsApp()" id="checkout-btn" class="w-full bg-brandgreen hover:bg-emerald-950 text-cream font-bold py-4 rounded-2xl text-sm shadow-md transition flex items-center justify-center gap-2">
+          Kirim Pesanan (WhatsApp)
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    const WHATSAPP_NUMBER = "6281216841965";
+
+    // Data Menu Terstruktur dengan Atribut `available` (Ketersediaan Stok)
+    const menuItems = [
+      // Signature
+      { id: 1, name: "Creamy", price: 20000, category: "Signature", isDrink: true, tag: "RICH & TEXTURED", color: "bg-brandgreen", available: true, img: "https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=300&q=80" },
+      { id: 2, name: "Caramel", price: 22000, category: "Signature", isDrink: true, tag: "SWEET & BUTTERY", color: "bg-cardgold", available: true, img: "https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=300&q=80" },
+      { id: 3, name: "Aren", price: 20000, category: "Signature", isDrink: true, tag: "LOCAL FLAVOR", color: "bg-cardcharcoal", available: true, img: "https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=300&q=80" },
+      { id: 4, name: "Biscof", price: 25000, category: "Signature", isDrink: true, tag: "CRUNCHY TWIST", color: "bg-brandgreen", available: false, img: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=300&q=80" }, // CONTOH HABIS
+
+      // Milky base
+      { id: 5, name: "Caffe latte", price: 25000, category: "Milky base", isDrink: true, tag: "CLASSIC BREW", color: "bg-cardcharcoal", available: true, img: "https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=300&q=80" },
+      { id: 6, name: "Cappucino", price: 25000, category: "Milky base", isDrink: true, tag: "FOAMY HEAVEN", color: "bg-cardred", available: true, img: "https://images.unsplash.com/photo-1534778101976-62847782c213?auto=format&fit=crop&w=300&q=80" },
+      { id: 7, name: "Salted caramel", price: 20000, category: "Milky base", isDrink: true, tag: "SALTY SWEET", color: "bg-cardgold", available: true, img: "https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=300&q=80" },
+      { id: 8, name: "Butterscotch", price: 20000, category: "Milky base", isDrink: true, tag: "CARAMELIZED", color: "bg-brandgreen", available: true, img: "https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=300&q=80" },
+      { id: 9, name: "Mocca", price: 20000, category: "Milky base", isDrink: true, tag: "CHOCOLATE FUSION", color: "bg-cardcharcoal", available: true, img: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=300&q=80" },
+      { id: 10, name: "Pistacio", price: 20000, category: "Milky base", isDrink: true, tag: "NUTTY INDULGENCE", color: "bg-cardgold", available: false, img: "https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=300&q=80" }, // CONTOH HABIS
+      { id: 11, name: "Pandan", price: 20000, category: "Milky base", isDrink: true, tag: "AROMATIC GREEN", color: "bg-brandgreen", available: true, img: "https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=300&q=80" },
+
+      // Black coffe
+      { id: 12, name: "V60", price: 35000, category: "Black coffe", isDrink: true, tag: "MANUAL BREWED", color: "bg-cardcharcoal", available: true, img: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=300&q=80" },
+      { id: 13, name: "Americano", price: 15000, category: "Black coffe", isDrink: true, tag: "BOLD & PURE", color: "bg-brandgreen", available: true, img: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=300&q=80" },
+      { id: 14, name: "Bon bon", price: 15000, category: "Black coffe", isDrink: true, tag: "CONDENSED SWEET", color: "bg-cardgold", available: true, img: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=300&q=80" },
+
+      // Refresher
+      { id: 15, name: "Orange nectar", price: 20000, category: "Refresher", isDrink: true, tag: "CITRUS BLUSH", color: "bg-cardgold", available: true, img: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=300&q=80" },
+      { id: 16, name: "Blue paradise", price: 20000, category: "Refresher", isDrink: true, tag: "OCEAN Breeze", color: "bg-brandgreen", available: true, img: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=300&q=80" },
+      { id: 17, name: "Sparkling peach", price: 20000, category: "Refresher", isDrink: true, tag: "BUBBLY FRUIT", color: "bg-cardcharcoal", available: true, img: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=300&q=80" },
+
+      // Non coffe
+      { id: 18, name: "Choco matcha", price: 20000, category: "Non coffe", isDrink: true, tag: "EARTHY SWEET", color: "bg-brandgreen", available: true, img: "https://images.unsplash.com/photo-1536256263959-770b48d82b0a?auto=format&fit=crop&w=300&q=80" },
+      { id: 19, name: "Chocolate", price: 20000, category: "Non coffe", isDrink: true, tag: "RICH COCOA", color: "bg-cardred", available: true, img: "https://images.unsplash.com/photo-1536256263959-770b48d82b0a?auto=format&fit=crop&w=300&q=80" },
+      { id: 20, name: "Redvelvet", price: 20000, category: "Non coffe", isDrink: true, tag: "CAKE IN A CUP", color: "bg-cardgold", available: true, img: "https://images.unsplash.com/photo-1536256263959-770b48d82b0a?auto=format&fit=crop&w=300&q=80" },
+      { id: 21, name: "Regal", price: 20000, category: "Non coffe", isDrink: true, tag: "COOKIES CRUNCH", color: "bg-cardcharcoal", available: true, img: "https://images.unsplash.com/photo-1536256263959-770b48d82b0a?auto=format&fit=crop&w=300&q=80" },
+      { id: 22, name: "Matcha", price: 20000, category: "Non coffe", isDrink: true, tag: "ORGANIC GREEN", color: "bg-brandgreen", available: true, img: "https://images.unsplash.com/photo-1536256263959-770b48d82b0a?auto=format&fit=crop&w=300&q=80" },
+      { id: 23, name: "Lemontea", price: 15000, category: "Non coffe", isDrink: true, tag: "TANGY REFRESH", color: "bg-cardgold", available: true, img: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=300&q=80" },
+      { id: 24, name: "Leci tea", price: 15000, category: "Non coffe", isDrink: true, tag: "SWEET LYCHEE", color: "bg-cardred", available: true, img: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=300&q=80" },
+
+      // Mocktail coffee
+      { id: 25, name: "Summer", price: 22000, category: "Moctail coffe", isDrink: true, tag: "SUNSHINE SIP", color: "bg-brandgreen", available: true, img: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=300&q=80" },
+      { id: 26, name: "Sunrise bless", price: 22000, category: "Moctail coffe", isDrink: true, tag: "CITRUS COFFEE", color: "bg-cardgold", available: true, img: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=300&q=80" },
+      { id: 27, name: "Peach keen", price: 22000, category: "Moctail coffe", isDrink: true, tag: "FRUITY EXOTIC", color: "bg-cardcharcoal", available: true, img: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=300&q=80" },
+
+      // Food and snack
+      { id: 28, name: "French fries", price: 18000, category: "Food and snack", isDrink: false, tag: "GOLDEN POTATO", color: "bg-cardgold", available: true, img: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=300&q=80" },
+      { id: 29, name: "Nuggets", price: 18000, category: "Food and snack", isDrink: false, tag: "CRISPY BITES", color: "bg-cardcharcoal", available: true, img: "https://images.unsplash.com/photo-1569229761022-02824b45450c?auto=format&fit=crop&w=300&q=80" },
+      { id: 30, name: "Sosis", price: 18000, category: "Food and snack", isDrink: false, tag: "SAVORY GRILLED", color: "bg-cardred", available: true, img: "https://images.unsplash.com/photo-1569229761022-02824b45450c?auto=format&fit=crop&w=300&q=80" },
+      { id: 31, name: "Platter", price: 25000, category: "Food and snack", isDrink: false, tag: "MIXED DELIGHTS", color: "bg-brandgreen", available: true, img: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=300&q=80" },
+      { id: 32, name: "Cheese banana", price: 18000, category: "Food and snack", isDrink: false, tag: "SWEET CHEESY", color: "bg-cardgold", available: true, img: "https://images.unsplash.com/photo-1569229761022-02824b45450c?auto=format&fit=crop&w=300&q=80" },
+      { id: 33, name: "Nacos", price: 25000, category: "Food and snack", isDrink: false, tag: "CRUNCHY NACHOS", color: "bg-cardcharcoal", available: true, img: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=300&q=80" },
+      { id: 34, name: "Ayam geprek", price: 25000, category: "Food and snack", isDrink: false, tag: "LOCAL SPICY CHIX", color: "bg-cardred", available: true, img: "https://images.unsplash.com/photo-1569229761022-02824b45450c?auto=format&fit=crop&w=300&q=80" },
+      { id: 35, name: "Chicken katsu", price: 28000, category: "Food and snack", isDrink: false, tag: "JAPANESE CRISP", color: "bg-brandgreen", available: true, img: "https://images.unsplash.com/photo-1569229761022-02824b45450c?auto=format&fit=crop&w=300&q=80" },
+      { id: 36, name: "Garlic chicken", price: 28000, category: "Food and snack", isDrink: false, tag: "AROMATIC GLOW", color: "bg-cardgold", available: true, img: "https://images.unsplash.com/photo-1569229761022-02824b45450c?auto=format&fit=crop&w=300&q=80" }
+    ];
+
+    // State
+    let currentCategory = "Signature";
+    let cart = [];
+    let activeDetailItem = null;
+    let currentQty = 1;
+    let globalSeatSelected = "";
+
+    // Inisialisasi
+    window.addEventListener('DOMContentLoaded', () => {
+      renderVerticalTabs();
+      renderMenuCards();
+      initSeatSelectionOptions();
+      togglePaymentDisplay('Cash');
+      updateCartSummary(); // Sembunyikan keranjang di awal
+    });
+
+    // Render Vertical Tabs
+    function renderVerticalTabs() {
+      const categories = [...new Set(menuItems.map(item => item.category))];
+      const container = document.getElementById('rotated-tabs-container');
+      
+      container.innerHTML = categories.map(cat => {
+        const isSelected = cat === currentCategory;
+        return `
+          <button onclick="changeCategory('${cat}')" class="vertical-text text-xs tracking-wider font-extrabold transition-all duration-200 transform ${isSelected ? 'text-brandgreen scale-110 opacity-100 font-extrabold' : 'text-brandgreen/40 hover:opacity-80'}">
+            ${cat}
+            ${isSelected ? '<span class="inline-block w-1.5 h-1.5 rounded-full bg-brandgreen ml-1 align-middle"></span>' : ''}
+          </button>
+        `;
+      }).join('');
+    }
+
+    function changeCategory(category) {
+      currentCategory = category;
+      renderVerticalTabs();
+      renderMenuCards();
+    }
+
+    // Render Menu Cards (Perbaikan Teks & Status Ketersediaan)
+    function renderMenuCards() {
+      const container = document.getElementById('catalog-list-container');
+      const filtered = menuItems.filter(item => item.category === currentCategory);
+
+      container.innerHTML = filtered.map(item => {
+        const cardOpacity = item.available ? 'opacity-100' : 'opacity-65';
+        const buttonDisplay = item.available 
+          ? `<div class="absolute -left-4 w-9 h-9 bg-white text-brandgreen rounded-xl flex items-center justify-center shadow-md border border-gray-100 transition-transform active:scale-95"><span class="text-lg font-bold">+</span></div>` 
+          : `<div class="absolute -left-4 w-9 h-9 bg-gray-300 text-gray-500 rounded-xl flex items-center justify-center shadow-md border border-gray-200 text-[9px] font-extrabold">✕</div>`;
+
+        const availabilityBadge = item.available 
+          ? `<span class="inline-flex items-center gap-1 text-[8px] font-bold text-emerald-300 mt-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Tersedia</span>`
+          : `<span class="inline-flex items-center gap-1 text-[8px] font-bold text-red-300 mt-1"><span class="w-1.5 h-1.5 rounded-full bg-red-400"></span> Habis</span>`;
+
+        return `
+          <div onclick="selectItemForDetail(${item.id})" class="relative flex items-center justify-between ${item.color} text-white p-5 pl-10 rounded-[2rem] h-32 shadow-md mr-4 ml-3 my-6 cursor-pointer hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 ${cardOpacity}">
+            <!-- Left Side Floating Icon -->
+            ${buttonDisplay}
+
+            <!-- Rincian Produk (max-w-[60%] & pr-6 menjamin tulisan TIDAK AKAN PERNAH terhalang gambar di kanan) -->
+            <div class="flex-grow max-w-[60%] pr-4 z-10 flex flex-col justify-center">
+              <span class="text-[8px] uppercase tracking-widest font-extrabold text-white/60 block truncate">${item.tag}</span>
+              <h4 class="font-bold text-xs md:text-sm font-dmsans tracking-wide truncate leading-tight mt-0.5">${item.name}</h4>
+              <span class="font-extrabold text-xs block mt-1">${formatRupiah(item.price)}</span>
+              ${availabilityBadge}
+            </div>
+
+            <!-- Overflowing Image (Sisi Kanan) -->
+            <div class="absolute right-0 top-1/2 -translate-y-1/2 w-24 h-24 flex items-center justify-center pointer-events-none z-0">
+              <img src="${item.img}" alt="${item.name}" class="w-20 h-20 object-cover rounded-full shadow-lg border-2 border-white transition-transform">
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Mengisi Dropdown Tempat Duduk 1-20
+    function initSeatSelectionOptions() {
+      const select = document.getElementById('detail-table-select');
+      for(let i=1; i<=20; i++) {
+        const opt = document.createElement('option');
+        opt.value = i;
+        opt.textContent = `Kursi / Meja ${i}`;
+        select.appendChild(opt);
+      }
+    }
+
+    // Logika Pemilihan Item & Kustomisasi
+    function selectItemForDetail(itemId) {
+      const item = menuItems.find(i => i.id === itemId);
+      if(!item) return;
+
+      // Cegah klik jika item habis
+      if(!item.available) {
+        alert(`Mohon maaf, menu "${item.name}" saat ini sedang habis.`);
+        return;
+      }
+
+      activeDetailItem = item;
+      currentQty = 1;
+
+      // Populate Detail UI
+      document.getElementById('detail-item-img').src = item.img;
+      document.getElementById('detail-item-name').innerText = item.name;
+      document.getElementById('detail-item-category').innerText = item.category;
+      document.getElementById('detail-qty-value').innerText = currentQty;
+      document.getElementById('detail-note').value = "";
+
+      // Atur Badge Status Detail
+      const badge = document.getElementById('detail-item-status-badge');
+      badge.innerText = "Tersedia";
+      badge.className = "px-3 py-1 rounded-full text-[10px] font-extrabold tracking-wide uppercase bg-emerald-100 text-emerald-800";
+
+      // Atur Tombol Order
+      const orderBtn = document.getElementById('add-to-cart-btn');
+      orderBtn.disabled = false;
+      orderBtn.className = "flex-1 bg-brandgreen hover:bg-emerald-950 text-cream font-bold py-3.5 px-4 rounded-2xl text-xs md:text-sm shadow-md transition transform active:scale-95";
+
+      // Kondisi suhu (Hanya tampil untuk minuman)
+      const tempGroup = document.getElementById('detail-temp-group');
+      if (item.isDrink) {
+        tempGroup.classList.remove('hidden');
+      } else {
+        tempGroup.classList.add('hidden');
+      }
+
+      // Restore nomor kursi global jika sudah pernah dipilih
+      if(globalSeatSelected) {
+        document.getElementById('detail-table-select').value = globalSeatSelected;
+      } else {
+        document.getElementById('detail-table-select').selectedIndex = 0;
+      }
+
+      calculateDetailPrice();
+
+      // Show Active Panel
+      document.getElementById('detail-empty-state').classList.add('hidden');
+      document.getElementById('detail-active-content').classList.remove('hidden');
+
+      // Responsif Mobile: Munculkan panel dari kanan
+      const screenDetail = document.getElementById('screen-detail');
+      screenDetail.classList.remove('translate-x-full');
+    }
+
+    function closeDetailScreenMobile() {
+      const screenDetail = document.getElementById('screen-detail');
+      screenDetail.classList.add('translate-x-full');
+    }
+
+    function adjustDetailQty(amount) {
+      currentQty = Math.max(1, currentQty + amount);
+      document.getElementById('detail-qty-value').innerText = currentQty;
+      calculateDetailPrice();
+    }
+
+    function calculateDetailPrice() {
+      if(!activeDetailItem) return;
+      const total = activeDetailItem.price * currentQty;
+      document.getElementById('detail-total-price').innerText = formatRupiah(total);
+    }
+
+    // Tambah ke Keranjang Belanja
+    function addActiveItemToCart() {
+      if(!activeDetailItem) return;
+
+      const seatValue = document.getElementById('detail-table-select').value;
+      if(!seatValue) {
+        alert("Silakan tentukan Nomor Kursi / Meja sebelum memesan.");
+        document.getElementById('detail-table-select').focus();
+        return;
+      }
+
+      globalSeatSelected = seatValue; // Simpan secara global
+
+      const selectedTemp = activeDetailItem.isDrink ? document.getElementById('detail-temp-select').value : null;
+      const note = document.getElementById('detail-note').value.trim();
+
+      const orderItem = {
+        id: Date.now(),
+        menuId: activeDetailItem.id,
+        name: activeDetailItem.name,
+        price: activeDetailItem.price,
+        qty: currentQty,
+        temp: selectedTemp,
+        note: note
+      };
+
+      cart.push(orderItem);
+      updateCartSummary();
+
+      // Alert & Reset
+      alert(`Berhasil menambahkan ${activeDetailItem.name} ke keranjang.`);
+      
+      // Di mobile, kembalikan ke layar katalog setelah menambahkan item
+      closeDetailScreenMobile();
+    }
+
+    // Memperbarui Summary Keranjang & Aturan Visibilitas Keranjang
+    function updateCartSummary() {
+      const badge = document.getElementById('cart-badge');
+      const headerCartBtn = document.getElementById('cart-btn-header');
+      const totalItems = cart.reduce((acc, item) => acc + item.qty, 0);
+      
+      if(totalItems > 0) {
+        // Keranjang HANYA muncul ketika user sudah memilih pesanan (ada isi)
+        badge.innerText = totalItems;
+        headerCartBtn.classList.remove('hidden');
+        headerCartBtn.classList.add('flex');
+      } else {
+        // Keranjang disembunyikan sepenuhnya bila kosong
+        headerCartBtn.classList.add('hidden');
+        headerCartBtn.classList.remove('flex');
+        closeCartDrawer(); // Pastikan drawer tertutup bila kosong
+      }
+    }
+
+    // Toggle Tampilan Keranjang (Cart Drawer)
+    function openCartDrawer() {
+      renderCartItems();
+      const drawer = document.getElementById('cart-drawer');
+      drawer.classList.remove('-translate-x-full');
+    }
+
+    function closeCartDrawer() {
+      const drawer = document.getElementById('cart-drawer');
+      drawer.classList.add('-translate-x-full');
+    }
+
+    // Render List di Drawer Keranjang
+    function renderCartItems() {
+      const container = document.getElementById('cart-items-container');
+      const checkoutDetails = document.getElementById('cart-checkout-details');
+      
+      if(cart.length === 0) {
+        container.innerHTML = `
+          <div class="flex flex-col items-center justify-center py-12 text-gray-400">
+            <svg class="w-12 h-12 mb-2 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+            <p class="text-xs">Keranjang Anda masih kosong</p>
+          </div>
+        `;
+        checkoutDetails.classList.add('hidden');
+        document.getElementById('cart-subtotal').innerText = "Rp 0";
+        return;
+      }
+
+      checkoutDetails.classList.remove('hidden');
+      
+      container.innerHTML = cart.map(item => {
+        const optText = item.temp ? ` • [${item.temp}]` : '';
+        const noteText = item.note ? `<p class="text-[10px] text-orange-600 italic mt-0.5">"${item.note}"</p>` : '';
+        
+        return `
+          <div class="flex items-center justify-between gap-3 bg-white p-3 rounded-2xl border border-brandgreen/5 shadow-sm">
+            <div class="flex-1 min-w-0">
+              <span class="font-bold text-xs text-brandgreen block truncate">${item.name}</span>
+              <span class="text-[11px] font-semibold text-brandgreen/60">${formatRupiah(item.price)}${optText}</span>
+              ${noteText}
+            </div>
+            <!-- Adjust Qty -->
+            <div class="flex items-center bg-mintbg/30 rounded-xl p-0.5">
+              <button onclick="adjustCartQty(${item.id}, -1)" class="w-6 h-6 flex items-center justify-center text-xs font-bold text-brandgreen bg-white rounded-lg shadow-sm">-</button>
+              <span class="w-6 text-center text-xs font-bold text-brandgreen">${item.qty}</span>
+              <button onclick="adjustCartQty(${item.id}, 1)" class="w-6 h-6 flex items-center justify-center text-xs font-bold text-brandgreen bg-white rounded-lg shadow-sm">+</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // Subtotal
+      const subtotal = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
+      document.getElementById('cart-subtotal').innerText = formatRupiah(subtotal);
+    }
+
+    function adjustCartQty(cartId, amount) {
+      const index = cart.findIndex(item => item.id === cartId);
+      if (index !== -1) {
+        cart[index].qty += amount;
+        if(cart[index].qty <= 0) {
+          cart.splice(index, 1);
+        }
+      }
+      renderCartItems();
+      updateCartSummary();
+    }
+
+    // Toggle Pembayaran QRIS / Cash
+    function togglePaymentDisplay(method) {
+      const cashBtn = document.getElementById('pay-cash-btn');
+      const qrisBtn = document.getElementById('pay-qris-btn');
+      const qrisPanel = document.getElementById('qris-panel');
+
+      if(method === 'Cash') {
+        cashBtn.className = "flex flex-col items-center justify-center border-2 border-brandgreen rounded-2xl py-3 px-2 cursor-pointer bg-brandgreen text-cream transition";
+        qrisBtn.className = "flex flex-col items-center justify-center border-2 border-brandgreen/10 rounded-2xl py-3 px-2 cursor-pointer bg-white text-brandgreen transition";
+        qrisPanel.classList.add('hidden');
+      } else {
+        qrisBtn.className = "flex flex-col items-center justify-center border-2 border-brandgreen rounded-2xl py-3 px-2 cursor-pointer bg-brandgreen text-cream transition";
+        cashBtn.className = "flex flex-col items-center justify-center border-2 border-brandgreen/10 rounded-2xl py-3 px-2 cursor-pointer bg-white text-brandgreen transition";
+        qrisPanel.classList.remove('hidden');
+      }
+    }
+
+    // Checkout ke WhatsApp
+    function sendOrderToWhatsApp() {
+      if(cart.length === 0) {
+        alert("Keranjang masih kosong.");
+        return;
+      }
+
+      if(!globalSeatSelected) {
+        alert("Mohon pilih nomor kursi/meja di panel detail terlebih dahulu.");
+        return;
+      }
+
+      const paymentMethod = document.querySelector('input[name="payment-method"]:checked').value;
+
+      let message = `*HALO SATU . SATU!* ☕️\n`;
+      message += `Berikut rincian pesanan saya:\n\n`;
+      message += `--------------------------------------\n`;
+
+      cart.forEach((item, index) => {
+        const option = item.temp ? ` [${item.temp}]` : '';
+        message += `${index + 1}. *${item.name}* (${item.qty}x)${option}\n`;
+        message += `   Harga: ${formatRupiah(item.price * item.qty)}\n`;
+        if(item.note) {
+          message += `   _Catatan: ${item.note}_\n`;
+        }
+        message += `\n`;
+      });
+
+      const total = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
+
+      message += `--------------------------------------\n`;
+      message += `📍 *No. Kursi/Meja:* Meja ${globalSeatSelected}\n`;
+      message += `💳 *Metode Bayar:* ${paymentMethod}\n`;
+      message += `💰 *Total Bayar:* *${formatRupiah(total)}*\n\n`;
+
+      if(paymentMethod === 'QRIS') {
+        message += `_Bukti pembayaran QRIS akan segera saya kirimkan._\n\n`;
+      }
+      message += `Mohon segera diproses, terima kasih! ✨`;
+
+      const encoded = encodeURIComponent(message);
+      window.open(`https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encoded}`, '_blank');
+    }
+
+    // Format Rupiah
+    function formatRupiah(num) {
+      return "Rp " + num.toLocaleString('id-ID');
+    }
+  </script>
+</body>
+</html>
