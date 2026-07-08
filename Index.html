@@ -1,4 +1,4 @@
-<Index.html>
+<index.html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -7,86 +7,102 @@
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts - Poppins -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
             font-family: 'Poppins', sans-serif;
+            background-color: #000000;
         }
-        /* Custom scrollbar for webkit */
+        /* Custom scrollbar */
         ::-webkit-scrollbar {
             width: 6px;
         }
         ::-webkit-scrollbar-track {
-            background: #f1f1f1;
+            background: #000000;
         }
         ::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
+            background: #747884;
             border-radius: 10px;
         }
     </style>
 </head>
-<body class="bg-slate-100 min-h-screen flex justify-center">
+<body class="min-h-screen flex justify-center text-white">
 
-    <!-- Container Utama (Simulasi Layar Mobile) -->
-    <div class="w-full max-w-md bg-white min-h-screen shadow-2xl relative flex flex-col pb-24">
+    <!-- Container Utama (Mobile-First Viewport) -->
+    <div class="w-full max-w-md bg-[#000000] min-h-screen shadow-2xl relative flex flex-col pb-28 border-x border-[#747884]/20">
         
-        <!-- Header / Banner -->
-        <div class="relative bg-gradient-to-r from-red-600 to-yellow-500 text-white px-6 pt-8 pb-16 rounded-b-[2.5rem] shadow-lg">
-            <div class="flex justify-between items-center mb-4">
-                <div>
-                    <span class="text-xs font-semibold bg-white/20 px-3 py-1 rounded-full backdrop-blur-sm">Jasa Titip Terpercaya</span>
-                    <h1 class="text-2xl font-bold mt-1 tracking-wide">Mie Gacoan Express</h1>
-                </div>
-                <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-md">
-                    <i class="fa-solid fa-fire text-red-600 text-2xl animate-pulse"></i>
-                </div>
+        <!-- Header Tanpa Logo -->
+        <div class="px-6 pt-10 pb-6 border-b border-[#747884]/30">
+            <span class="text-[10px] tracking-widest text-[#747884] uppercase font-bold">Layanan Jasa Titip</span>
+            <h1 class="text-3xl font-extrabold text-[#fe3781] tracking-tight mt-1">JASTIP MIE GACOAN Penajam</h1>
+            <p class="text-xs text-slate-300 mt-2 leading-relaxed">Nikmati kemudahan memesan menu Mie Gacoan favorit tanpa perlu antre lama. Silakan pilih menu di bawah ini.</p>
+        </div>
+
+        <!-- Note / Catatan Informasi Pengiriman -->
+        <div class="px-5 mt-6">
+            <div class="bg-[#121214] border border-[#fe3781]/40 p-4 rounded-2xl shadow-md">
+                <h3 class="text-xs font-bold text-[#fe3781] uppercase tracking-wider mb-2.5 flex items-center gap-2">
+                    <i class="fa-solid fa-circle-info"></i> Informasi Penting
+                </h3>
+                <ul class="space-y-2 text-xs text-slate-200 leading-relaxed">
+                    <li class="flex items-start gap-2">
+                        <span class="text-[#fe3781] font-bold">•</span>
+                        <span>Harga yang tertera <strong>sudah termasuk ongkir</strong>.</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <span class="text-[#fe3781] font-bold">•</span>
+                        <span>Pengambilan dilakukan di <strong>S ONE BARBERSHOP</strong>.</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <span class="text-[#fe3781] font-bold">•</span>
+                        <span>Apabila di antar sampai depan rumah, akan ada <strong>tambahan ongkir</strong>.</span>
+                    </li>
+                </ul>
             </div>
-            <p class="text-xs text-white/90 leading-relaxed font-light">Pesan menu Gacoan favoritmu tanpa ribet antre. Cukup pesan, bayar non-tunai, dan pesanan akan langsung diproses via WhatsApp!</p>
         </div>
 
         <!-- Menu Kategori / Filter -->
-        <div class="px-5 -mt-8 mb-6">
-            <div class="bg-white p-4 rounded-2xl shadow-md flex justify-around border border-gray-100">
-                <button onclick="filterMenu('semua')" id="btn-semua" class="cat-btn px-4 py-2 rounded-xl text-xs font-semibold bg-red-600 text-white transition-all">Semua</button>
-                <button onclick="filterMenu('mie')" id="btn-mie" class="cat-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all">Mie</button>
-                <button onclick="filterMenu('dimsum')" id="btn-dimsum" class="cat-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all">Dimsum</button>
+        <div class="px-5 mt-6">
+            <div class="bg-[#121214] p-2.5 rounded-2xl border border-[#747884]/30 flex justify-around">
+                <button onclick="filterMenu('semua')" id="btn-semua" class="cat-btn px-4 py-2 rounded-xl text-xs font-bold bg-[#fe3781] text-white transition-all">Semua</button>
+                <button onclick="filterMenu('mie')" id="btn-mie" class="cat-btn px-4 py-2 rounded-xl text-xs font-bold bg-transparent text-[#747884] hover:text-white transition-all">Mie</button>
+                <button onclick="filterMenu('dimsum')" id="btn-dimsum" class="cat-btn px-4 py-2 rounded-xl text-xs font-bold bg-transparent text-[#747884] hover:text-white transition-all">Dimsum</button>
             </div>
         </div>
 
         <!-- Daftar Menu -->
-        <div class="px-5 space-y-4 flex-1">
-            <h2 class="text-sm font-bold text-slate-800 uppercase tracking-wider mb-2">Pilih Menu Favoritmu</h2>
-            
+        <div class="px-5 mt-6 flex-1">
+            <h2 class="text-xs font-bold text-[#747884] uppercase tracking-wider mb-4">Daftar Menu Tersedia</h2>
             <div id="menu-container" class="space-y-4">
-                <!-- Menu items akan dimuat dinamis oleh Javascript -->
+                <!-- Menu dimuat secara dinamis oleh Javascript -->
             </div>
         </div>
 
-        <!-- Sticky Bottom Bar (Akan muncul jika ada item di keranjang) -->
-        <div id="cart-bar" class="hidden fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md bg-white/95 backdrop-blur-md border-t border-slate-100 p-4 shadow-[0_-8px_20px_rgba(0,0,0,0.05)] rounded-t-3xl z-40">
+        <!-- Sticky Bottom Bar (Aktif jika keranjang terisi) -->
+        <div id="cart-bar" class="hidden fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md bg-[#121214]/95 backdrop-blur-md border-t border-[#747884]/30 p-4 shadow-[0_-8px_24px_rgba(0,0,0,0.5)] rounded-t-3xl z-40">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-xs text-slate-400">Total Pembayaran</p>
-                    <p id="cart-bar-total" class="text-lg font-bold text-red-600">Rp 0</p>
+                    <p class="text-[10px] text-[#747884] font-bold uppercase">Total Pembayaran</p>
+                    <p id="cart-bar-total" class="text-lg font-extrabold text-[#fe3781]">Rp 0</p>
                 </div>
-                <button onclick="toggleCheckoutModal(true)" class="bg-gradient-to-r from-red-600 to-yellow-500 hover:opacity-90 active:scale-95 transition-all text-white px-6 py-3 rounded-2xl font-semibold text-xs flex items-center gap-2 shadow-md">
-                    <i class="fa-solid fa-basket-shopping"></i> Lihat Keranjang (<span id="cart-bar-qty">0</span>)
+                <button onclick="toggleCheckoutModal(true)" class="bg-[#fe3781] hover:opacity-90 active:scale-95 transition-all text-white px-5 py-3 rounded-xl font-bold text-xs flex items-center gap-2 shadow-lg shadow-[#fe3781]/20">
+                    <i class="fa-solid fa-basket-shopping"></i> Keranjang (<span id="cart-bar-qty">0</span>)
                 </button>
             </div>
         </div>
 
         <!-- Modal Checkout / Keranjang Belanja -->
-        <div id="checkout-modal" class="hidden fixed inset-0 bg-black/60 z-50 flex items-end justify-center transition-opacity duration-300">
-            <div class="w-full max-w-md bg-slate-50 rounded-t-[2.5rem] max-h-[90vh] overflow-y-auto p-6 shadow-2xl relative flex flex-col">
+        <div id="checkout-modal" class="hidden fixed inset-0 bg-black/80 z-50 flex items-end justify-center">
+            <div class="w-full max-w-md bg-[#000000] rounded-t-[2rem] max-h-[90vh] overflow-y-auto p-6 border-t border-[#747884]/30 flex flex-col">
                 
                 <!-- Modal Header -->
                 <div class="flex justify-between items-center mb-6">
-                    <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
-                        <i class="fa-solid fa-cart-shopping text-red-600"></i> Detail Keranjang
+                    <h3 class="text-md font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-cart-shopping text-[#fe3781]"></i> Keranjang Belanja Anda
                     </h3>
-                    <button onclick="toggleCheckoutModal(false)" class="w-8 h-8 bg-slate-200 rounded-full flex items-center justify-center text-slate-600 hover:bg-slate-300">
+                    <button onclick="toggleCheckoutModal(false)" class="w-8 h-8 bg-[#121214] border border-[#747884]/30 rounded-full flex items-center justify-center text-[#747884] hover:text-white">
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>
@@ -97,51 +113,51 @@
                 </div>
 
                 <!-- Formulir Data Penerima -->
-                <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm space-y-4 mb-6">
-                    <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider">Informasi Penerima</h4>
+                <div class="bg-[#121214] p-4 rounded-2xl border border-[#747884]/20 shadow-sm space-y-4 mb-6">
+                    <h4 class="text-xs font-bold text-[#fe3781] uppercase tracking-wider">Informasi Penerima</h4>
                     <div>
-                        <label class="block text-xs font-semibold text-slate-500 mb-1">Nama Lengkap</label>
-                        <input type="text" id="cust-name" class="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-red-500" placeholder="Masukkan nama Anda">
+                        <label class="block text-[11px] font-semibold text-slate-300 mb-1">Nama Lengkap</label>
+                        <input type="text" id="cust-name" class="w-full bg-[#000000] border border-[#747884]/30 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-[#fe3781]" placeholder="Masukkan nama Anda">
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-slate-500 mb-1">Nomor WhatsApp</label>
-                        <input type="tel" id="cust-wa" class="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-red-500" placeholder="Contoh: 081234567xxx">
+                        <label class="block text-[11px] font-semibold text-slate-300 mb-1">Nomor WhatsApp</label>
+                        <input type="tel" id="cust-wa" class="w-full bg-[#000000] border border-[#747884]/30 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-[#fe3781]" placeholder="Contoh: 081234567xxx">
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-slate-500 mb-1">Alamat Pengiriman / Detail Lokasi</label>
-                        <textarea id="cust-address" rows="2" class="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-red-500" placeholder="Tuliskan alamat lengkap pengiriman"></textarea>
+                        <label class="block text-[11px] font-semibold text-slate-300 mb-1">Alamat Pengiriman (Jika Diantar)</label>
+                        <textarea id="cust-address" rows="2" class="w-full bg-[#000000] border border-[#747884]/30 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-[#fe3781]" placeholder="Tulis alamat lengkap atau tulis 'Ambil di Barbershop'"></textarea>
                     </div>
                 </div>
 
                 <!-- Informasi Pembayaran Transfer -->
-                <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm space-y-4 mb-6">
-                    <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center justify-between">
-                        <span>Metode Pembayaran (Transfer)</span>
-                        <span class="text-[10px] bg-red-100 text-red-600 px-2 py-0.5 rounded-full">Wajib Non-Tunai</span>
-                    </h4>
+                <div class="bg-[#121214] p-4 rounded-2xl border border-[#747884]/20 shadow-sm space-y-4 mb-6">
+                    <div class="flex items-center justify-between">
+                        <h4 class="text-xs font-bold text-[#fe3781] uppercase tracking-wider">Rekening Pembayaran</h4>
+                        <span class="text-[9px] bg-[#fe3781]/15 text-[#fe3781] px-2.5 py-0.5 rounded-full font-bold">Mandiri Non-Tunai</span>
+                    </div>
                     
-                    <div class="bg-slate-50 p-3 rounded-xl border border-dashed border-slate-200 flex items-center justify-between">
+                    <div class="bg-[#000000] p-4 rounded-xl border border-[#747884]/30 flex items-center justify-between">
                         <div>
-                            <p class="text-[10px] text-slate-400">Bank Mandiri</p>
-                            <p class="text-sm font-bold text-slate-800" id="rek-num">1113222333</p>
-                            <p class="text-[10px] text-slate-500">a.n. Jastip Gacoan Mandiri</p>
+                            <p class="text-[10px] text-[#747884] font-bold uppercase">Bank Mandiri</p>
+                            <p class="text-sm font-extrabold text-white tracking-wider" id="rek-num">1490015184734</p>
+                            <p class="text-[10px] text-slate-300 mt-0.5 font-medium">a.n. CHANIAGO KUSUMA PRAYOGI</p>
                         </div>
-                        <button onclick="copyToClipboard()" class="bg-red-50 text-red-600 hover:bg-red-100 px-3 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-all">
+                        <button onclick="copyToClipboard()" class="bg-[#fe3781]/10 text-[#fe3781] hover:bg-[#fe3781]/20 px-3.5 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all">
                             <i class="fa-regular fa-copy"></i> Salin
                         </button>
                     </div>
 
                     <!-- Upload Bukti Transfer -->
                     <div>
-                        <label class="block text-xs font-semibold text-slate-500 mb-2">Upload Bukti Transfer <span class="text-red-500">*</span></label>
-                        <div class="relative border-2 border-dashed border-slate-200 hover:border-red-400 transition-colors rounded-xl p-4 flex flex-col items-center justify-center cursor-pointer bg-slate-50" id="upload-box">
+                        <label class="block text-[11px] font-semibold text-slate-300 mb-2">Upload Bukti Transfer <span class="text-[#fe3781]">*</span></label>
+                        <div class="relative border-2 border-dashed border-[#747884]/30 hover:border-[#fe3781]/50 transition-colors rounded-xl p-4 flex flex-col items-center justify-center cursor-pointer bg-[#000000]" id="upload-box">
                             <input type="file" id="payment-proof" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer" onchange="previewProof(event)">
-                            <i class="fa-solid fa-cloud-arrow-up text-slate-400 text-xl mb-1" id="upload-icon"></i>
-                            <span class="text-xs text-slate-500 font-medium" id="upload-text">Klik untuk pilih gambar bukti TF</span>
-                            <span class="text-[9px] text-slate-400 mt-1">Format: JPG, PNG, WEBP</span>
+                            <i class="fa-solid fa-cloud-arrow-up text-[#747884] text-xl mb-1.5" id="upload-icon"></i>
+                            <span class="text-xs text-slate-300 font-medium text-center" id="upload-text">Klik untuk pilih gambar bukti TF</span>
+                            <span class="text-[9px] text-[#747884] mt-1">Format gambar: JPG, PNG, WEBP</span>
                         </div>
                         <!-- Preview Gambar -->
-                        <div id="proof-preview-container" class="hidden mt-3 relative rounded-xl overflow-hidden border border-slate-200">
+                        <div id="proof-preview-container" class="hidden mt-3 relative rounded-xl overflow-hidden border border-[#747884]/30">
                             <img id="proof-preview-img" src="" alt="Bukti Transfer" class="w-full max-h-40 object-cover">
                             <button onclick="removeProof()" class="absolute top-2 right-2 bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center shadow-md hover:bg-red-700">
                                 <i class="fa-solid fa-trash-can text-xs"></i>
@@ -150,25 +166,25 @@
                     </div>
                 </div>
 
-                <!-- Ringkasan Pembayaran & Tombol Order -->
-                <div class="border-t border-slate-200 pt-4 space-y-3">
-                    <div class="flex justify-between items-center text-sm">
-                        <span class="text-slate-500">Subtotal Menu:</span>
-                        <span id="modal-subtotal" class="font-bold text-slate-800">Rp 0</span>
+                <!-- Ringkasan & Tombol Kirim -->
+                <div class="border-t border-[#747884]/30 pt-4 space-y-3">
+                    <div class="flex justify-between items-center text-xs text-slate-300">
+                        <span>Total Pesanan:</span>
+                        <span id="modal-subtotal" class="font-bold text-white">Rp 0</span>
                     </div>
-                    <div class="flex justify-between items-center text-sm border-b border-slate-100 pb-3">
-                        <span class="text-slate-500">Biaya Jastip:</span>
-                        <span class="font-bold text-emerald-600">FREE</span>
+                    <div class="flex justify-between items-center text-xs text-slate-300 border-b border-[#747884]/20 pb-3">
+                        <span>Biaya Jastip & Ongkir:</span>
+                        <span class="font-bold text-emerald-400">Gratis (Sesuai Ketentuan)</span>
                     </div>
                     <div class="flex justify-between items-center">
-                        <span class="text-slate-800 font-bold">Total Tagihan:</span>
-                        <span id="modal-total" class="text-xl font-black text-red-600">Rp 0</span>
+                        <span class="text-white font-bold text-sm">Total Tagihan:</span>
+                        <span id="modal-total" class="text-xl font-black text-[#fe3781]">Rp 0</span>
                     </div>
 
-                    <button onclick="sendOrder()" class="w-full mt-2 bg-emerald-600 hover:bg-emerald-700 text-white py-3.5 rounded-2xl font-bold text-sm flex items-center justify-center gap-2 shadow-lg active:scale-95 transition-all">
-                        <i class="fa-brands fa-whatsapp text-lg animate-bounce"></i> Kirim Pesanan via WhatsApp
+                    <button onclick="sendOrder()" class="w-full mt-2 bg-emerald-600 hover:bg-emerald-700 text-white py-3.5 rounded-xl font-bold text-xs flex items-center justify-center gap-2 shadow-lg active:scale-95 transition-all">
+                        <i class="fa-brands fa-whatsapp text-base"></i> Kirim Pesanan via WhatsApp
                     </button>
-                    <p class="text-[10px] text-center text-slate-400">Pastikan Anda telah melakukan pembayaran & mengunggah bukti transfer.</p>
+                    <p class="text-[9px] text-center text-[#747884]">Proses pemesanan memerlukan verifikasi lampiran bukti transfer.</p>
                 </div>
 
             </div>
@@ -178,7 +194,7 @@
 
     <!-- JavaScript Aplikasi -->
     <script>
-        // Database Menu Gacoan asli dengan ilustrasi gambar berkualitas
+        // Database Menu Gacoan sesuai URL gambar yang diberikan
         const menuData = [
             {
                 id: 'gacoan',
@@ -187,7 +203,7 @@
                 kategori: 'mie',
                 desc: 'Mie pedas dengan bumbu kecap manis istimewa khas Gacoan tabur ayam cincang kasar.',
                 levels: [0, 1, 2, 3, 4, 6, 8],
-                image: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=500&auto=format&fit=crop&q=80'
+                image: 'https://upld.zone.id/uploads/vxir5xiq/img-0744.webp'
             },
             {
                 id: 'hompimpa',
@@ -196,7 +212,7 @@
                 kategori: 'mie',
                 desc: 'Mie dengan cita rasa pedas asin yang gurih dipadu taburan ayam halus melimpah.',
                 levels: [1, 2, 3, 4, 6, 8],
-                image: 'https://images.unsplash.com/photo-1612927601601-6638404737ce?w=500&auto=format&fit=crop&q=80'
+                image: 'https://upld.zone.id/uploads/vxir5xiq/img-0745.webp'
             },
             {
                 id: 'suit',
@@ -205,7 +221,7 @@
                 kategori: 'mie',
                 desc: 'Mie polos super gurih tanpa cabai, sangat pas untuk yang tidak suka pedas.',
                 levels: null,
-                image: 'https://images.unsplash.com/photo-1552611052-33e04de081de?w=500&auto=format&fit=crop&q=80'
+                image: 'https://upld.zone.id/uploads/vxir5xiq/img-0746.webp'
             },
             {
                 id: 'pangsit',
@@ -214,7 +230,7 @@
                 kategori: 'dimsum',
                 desc: 'Pangsit renyah dengan isian ayam giling bumbu spesial yang tebal di dalam.',
                 levels: null,
-                image: 'https://images.unsplash.com/photo-1541696432-82c6da8ce7bf?w=500&auto=format&fit=crop&q=80'
+                image: 'https://upld.zone.id/uploads/vxir5xiq/img-0747.webp'
             },
             {
                 id: 'lumpia',
@@ -223,7 +239,7 @@
                 kategori: 'dimsum',
                 desc: 'Kulit tahu renyah yang membungkus adonan udang lembut gurih berkualitas.',
                 levels: null,
-                image: 'https://images.unsplash.com/photo-1544025162-d76694265947?w=500&auto=format&fit=crop&q=80'
+                image: 'https://upld.zone.id/uploads/vxir5xiq/img-0748.webp'
             },
             {
                 id: 'keju',
@@ -232,7 +248,7 @@
                 kategori: 'dimsum',
                 desc: 'Udang goreng renyah dengan isian keju mozarella meleleh di setiap gigitan.',
                 levels: null,
-                image: 'https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=500&auto=format&fit=crop&q=80'
+                image: 'https://upld.zone.id/uploads/vxir5xiq/img-0749.webp'
             },
             {
                 id: 'rambutan',
@@ -241,7 +257,7 @@
                 kategori: 'dimsum',
                 desc: 'Bola-bola udang lembut dilapisi helaian mie garing mekar menyerupai rambutan.',
                 levels: null,
-                image: 'https://images.unsplash.com/photo-1522337360788-8b13edd793be?w=500&auto=format&fit=crop&q=80'
+                image: 'https://upld.zone.id/uploads/vxir5xiq/img-0750.webp'
             },
             {
                 id: 'siomay',
@@ -250,7 +266,7 @@
                 kategori: 'dimsum',
                 desc: 'Siomay kukus hangat bertekstur kenyal dengan kombinasi daging ayam dan udang.',
                 levels: null,
-                image: 'https://images.unsplash.com/photo-1625220194771-7ebedd0b7e1c?w=500&auto=format&fit=crop&q=80'
+                image: 'https://upld.zone.id/uploads/vxir5xiq/img-0751.webp'
             }
         ];
 
@@ -258,7 +274,7 @@
         let activeFilter = 'semua';
         let proofUploaded = false;
 
-        // Tampilkan Menu ke Layar
+        // Render Produk ke UI
         function renderMenu() {
             const container = document.getElementById('menu-container');
             container.innerHTML = '';
@@ -271,9 +287,9 @@
 
                 if (hasLevels) {
                     levelSelectorHtml = `
-                        <div class="mt-3 flex items-center gap-2">
-                            <label class="text-[10px] font-bold text-slate-500 uppercase">Pilih Level:</label>
-                            <select id="level-${item.id}" class="bg-slate-50 border border-slate-200 text-xs rounded-lg px-2 py-1 focus:outline-none focus:border-red-500 text-slate-700 font-semibold">
+                        <div class="mt-2.5 flex items-center gap-2">
+                            <span class="text-[10px] font-bold text-[#747884] uppercase">Level:</span>
+                            <select id="level-${item.id}" class="bg-[#000000] border border-[#747884]/40 text-[11px] rounded-lg px-2 py-1 focus:outline-none focus:border-[#fe3781] text-white font-bold">
                                 ${item.levels.map(lvl => `<option value="${lvl}">Level ${lvl}</option>`).join('')}
                             </select>
                         </div>
@@ -281,20 +297,20 @@
                 }
 
                 container.innerHTML += `
-                    <div class="bg-white rounded-3xl p-4 border border-slate-100 shadow-sm flex gap-4 hover:shadow-md transition-all duration-300">
-                        <div class="w-24 h-24 rounded-2xl overflow-hidden flex-shrink-0 bg-slate-100 border border-slate-100">
+                    <div class="bg-[#121214] rounded-2xl p-4 border border-[#747884]/15 flex gap-4 hover:border-[#fe3781]/40 transition-all duration-300">
+                        <div class="w-20 h-20 rounded-xl overflow-hidden flex-shrink-0 bg-slate-900 border border-[#747884]/20">
                             <img src="${item.image}" alt="${item.nama}" class="w-full h-full object-cover">
                         </div>
                         <div class="flex-1 flex flex-col justify-between">
                             <div>
-                                <h3 class="text-xs font-bold text-slate-800 leading-tight">${item.nama}</h3>
-                                <p class="text-[10px] text-slate-400 mt-1 line-clamp-2 leading-relaxed">${item.desc}</p>
+                                <h3 class="text-xs font-bold text-white leading-tight">${item.nama}</h3>
+                                <p class="text-[10px] text-slate-300 mt-1 line-clamp-2">${item.desc}</p>
                                 ${levelSelectorHtml}
                             </div>
                             <div class="flex justify-between items-center mt-3">
-                                <span class="text-xs font-bold text-red-600">Rp ${item.harga.toLocaleString('id-ID')}</span>
-                                <button onclick="addToCart('${item.id}')" class="bg-red-600 hover:bg-red-700 active:scale-95 transition-all text-white text-[11px] font-bold px-4 py-1.5 rounded-xl flex items-center gap-1">
-                                    <i class="fa-solid fa-plus text-[9px]"></i> Tambah
+                                <span class="text-xs font-extrabold text-[#fe3781]">Rp ${item.harga.toLocaleString('id-ID')}</span>
+                                <button onclick="addToCart('${item.id}')" class="bg-[#fe3781] hover:opacity-90 active:scale-95 transition-all text-white text-[10px] font-bold px-3 py-1.5 rounded-lg flex items-center gap-1 shadow-md shadow-[#fe3781]/10">
+                                    <i class="fa-solid fa-plus text-[8px]"></i> Tambah
                                 </button>
                             </div>
                         </div>
@@ -307,18 +323,18 @@
         function filterMenu(kategori) {
             activeFilter = kategori;
             document.querySelectorAll('.cat-btn').forEach(btn => {
-                btn.classList.remove('bg-red-600', 'text-white');
-                btn.classList.add('bg-slate-100', 'text-slate-600');
+                btn.classList.remove('bg-[#fe3781]', 'text-white');
+                btn.classList.add('bg-transparent', 'text-[#747884]');
             });
 
             const activeBtn = document.getElementById(`btn-${kategori}`);
-            activeBtn.classList.remove('bg-slate-100', 'text-slate-600');
-            activeBtn.classList.add('bg-red-600', 'text-white');
+            activeBtn.classList.remove('bg-transparent', 'text-[#747884]');
+            activeBtn.classList.add('bg-[#fe3781]', 'text-white');
 
             renderMenu();
         }
 
-        // Tambahkan ke Keranjang
+        // Tambah Item ke Keranjang
         function addToCart(itemId) {
             const item = menuData.find(m => m.id === itemId);
             let selectedLevel = null;
@@ -327,7 +343,6 @@
                 selectedLevel = document.getElementById(`level-${itemId}`).value;
             }
 
-            // Identifikasi unik berdasarkan ID + Level untuk pengelompokan varian di keranjang
             const cartKey = selectedLevel !== null ? `${itemId}-L${selectedLevel}` : itemId;
             const existingIndex = cart.findIndex(c => c.key === cartKey);
 
@@ -345,10 +360,10 @@
             }
 
             updateCartUI();
-            showToast(`Ditambahkan ke keranjang!`);
+            showToast(`Dimasukkan ke keranjang`);
         }
 
-        // Kurangi / Atur Qty Item di Keranjang
+        // Mengatur Kuantitas Item
         function changeQty(cartKey, change) {
             const index = cart.findIndex(c => c.key === cartKey);
             if (index > -1) {
@@ -361,14 +376,14 @@
             }
         }
 
-        // Hapus Item
+        // Hapus Item dari Keranjang
         function deleteCartItem(cartKey) {
             cart = cart.filter(c => c.key !== cartKey);
             updateCartUI();
             renderCartModalItems();
         }
 
-        // Perbarui Status Keranjang (Sticker Bottom Bar)
+        // Sinkronisasi Bar Informasi Keranjang
         function updateCartUI() {
             const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
             const totalPrice = cart.reduce((sum, item) => sum + (item.harga * item.qty), 0);
@@ -384,7 +399,7 @@
             }
         }
 
-        // Munculkan / Sembunyikan Modal Checkout
+        // Membuka & Menutup Modal Checkout
         function toggleCheckoutModal(show) {
             const modal = document.getElementById('checkout-modal');
             if (show) {
@@ -395,7 +410,7 @@
             }
         }
 
-        // Susun item di dalam keranjang modal
+        // Menampilkan Item didalam Modal
         function renderCartModalItems() {
             const container = document.getElementById('cart-items-container');
             container.innerHTML = '';
@@ -403,32 +418,32 @@
             let subtotal = 0;
 
             if (cart.length === 0) {
-                container.innerHTML = `<p class="text-center text-slate-400 text-xs py-4">Keranjang kosong</p>`;
+                container.innerHTML = `<p class="text-center text-[#747884] text-xs py-4">Keranjang kosong</p>`;
                 return;
             }
 
             cart.forEach(item => {
                 const totalItemPrice = item.harga * item.qty;
                 subtotal += totalItemPrice;
-                const levelLabel = item.level !== null ? `<span class="bg-red-50 text-red-600 text-[9px] font-bold px-2 py-0.5 rounded-md">Level ${item.level}</span>` : '';
+                const levelLabel = item.level !== null ? `<span class="bg-[#fe3781]/15 text-[#fe3781] text-[9px] font-bold px-1.5 py-0.5 rounded">Level ${item.level}</span>` : '';
 
                 container.innerHTML += `
-                    <div class="bg-white p-3 rounded-2xl border border-slate-100 shadow-sm flex items-center justify-between gap-3">
+                    <div class="bg-[#121214] p-3 rounded-xl border border-[#747884]/15 flex items-center justify-between gap-3">
                         <div class="flex-1">
                             <div class="flex items-center gap-1.5 flex-wrap">
-                                <h4 class="text-xs font-bold text-slate-800 leading-tight">${item.nama}</h4>
+                                <h4 class="text-xs font-bold text-white leading-tight">${item.nama}</h4>
                                 ${levelLabel}
                             </div>
-                            <p class="text-xs font-bold text-red-600 mt-1">Rp ${totalItemPrice.toLocaleString('id-ID')}</p>
+                            <p class="text-xs font-bold text-[#fe3781] mt-1">Rp ${totalItemPrice.toLocaleString('id-ID')}</p>
                         </div>
                         <div class="flex items-center gap-3">
-                            <div class="flex items-center gap-2 bg-slate-100 rounded-lg p-1">
-                                <button onclick="changeQty('${item.key}', -1)" class="w-5 h-5 rounded-md bg-white hover:bg-slate-200 text-xs font-bold text-slate-600 flex items-center justify-center shadow-sm">-</button>
-                                <span class="text-xs font-bold w-4 text-center text-slate-800">${item.qty}</span>
-                                <button onclick="changeQty('${item.key}', 1)" class="w-5 h-5 rounded-md bg-white hover:bg-slate-200 text-xs font-bold text-slate-600 flex items-center justify-center shadow-sm">+</button>
+                            <div class="flex items-center gap-2 bg-[#000000] border border-[#747884]/30 rounded-lg p-1">
+                                <button onclick="changeQty('${item.key}', -1)" class="w-5 h-5 rounded bg-[#121214] hover:bg-[#747884]/30 text-xs font-bold text-white flex items-center justify-center">-</button>
+                                <span class="text-xs font-bold w-4 text-center text-white">${item.qty}</span>
+                                <button onclick="changeQty('${item.key}', 1)" class="w-5 h-5 rounded bg-[#121214] hover:bg-[#747884]/30 text-xs font-bold text-white flex items-center justify-center">+</button>
                             </div>
-                            <button onclick="deleteCartItem('${item.key}')" class="text-slate-400 hover:text-red-600">
-                                <i class="fa-solid fa-trash-can text-sm"></i>
+                            <button onclick="deleteCartItem('${item.key}')" class="text-[#747884] hover:text-[#fe3781]">
+                                <i class="fa-solid fa-trash-can text-xs"></i>
                             </button>
                         </div>
                     </div>
@@ -439,13 +454,13 @@
             document.getElementById('modal-total').innerText = `Rp ${subtotal.toLocaleString('id-ID')}`;
         }
 
-        // Salin No Rekening Mandiri
+        // Fungsi Salin Rekening
         function copyToClipboard() {
             const textToCopy = document.getElementById('rek-num').innerText;
             navigator.clipboard.writeText(textToCopy).then(() => {
-                showToast("Nomor rekening berhasil disalin!");
-            }).catch(err => {
-                showToast("Gagal menyalin rekening!");
+                showToast("Nomor rekening disalin");
+            }).catch(() => {
+                showToast("Gagal menyalin");
             });
         }
 
@@ -468,7 +483,7 @@
             }
         }
 
-        // Hapus Bukti Transfer ter-upload
+        // Hapus Foto Preview
         function removeProof() {
             document.getElementById('payment-proof').value = "";
             document.getElementById('proof-preview-container').classList.add('hidden');
@@ -476,19 +491,19 @@
             proofUploaded = false;
         }
 
-        // Kirim Data Pesanan via WhatsApp
+        // Kirim Data Ke WhatsApp
         function sendOrder() {
             const name = document.getElementById('cust-name').value.trim();
             const wa = document.getElementById('cust-wa').value.trim();
             const address = document.getElementById('cust-address').value.trim();
 
             if (!name || !wa || !address) {
-                alert("Mohon lengkapi data penerima (Nama, No WA, dan Alamat) terlebih dahulu!");
+                alert("Harap isi Nama, Nomor WhatsApp, dan Detail Alamat/Keterangan pengambilan!");
                 return;
             }
 
             if (!proofUploaded) {
-                alert("Mohon lakukan pembayaran dan unggah foto Bukti Transfer untuk memesan!");
+                alert("Wajib melakukan transfer dan melampirkan bukti transfer terlebih dahulu!");
                 return;
             }
 
@@ -504,29 +519,31 @@
 
             const templateMsg = `*PESANAN JASTIP MIE GACOAN*\n` +
                                 `=========================\n\n` +
-                                `*Data Penerima:*\n` +
+                                `*Data Pemesan:*\n` +
                                 `• Nama: ${name}\n` +
                                 `• No HP/WA: ${wa}\n` +
-                                `• Alamat: ${address}\n\n` +
+                                `• Alamat/Lokasi: ${address}\n\n` +
                                 `*Daftar Pesanan:*\n` +
                                 `${orderDetailsStr}\n` +
-                                `*Metode Bayar:* Transfer Bank Mandiri (1113222333)\n` +
-                                `*Status Bukti:* Terlampir di form\n\n` +
+                                `*Metode Bayar:* Transfer Bank Mandiri\n` +
+                                `*No. Rekening:* 1490015184734\n` +
+                                `*Atas Nama:* CHANIAGO KUSUMA PRAYOGI\n\n` +
                                 `*Total Bayar:* *Rp ${grandTotal.toLocaleString('id-ID')}*\n\n` +
                                 `=========================\n` +
-                                `_Mohon segera mengirimkan foto bukti transfer juga pada pesan ini._`;
+                                `_Catatan: Pengambilan utama di S ONE BARBERSHOP. Harga sudah termasuk ongkir. (Ada biaya tambahan jika diantar langsung ke depan rumah)._\n\n` +
+                                `*Bukti Transfer telah dilampirkan melalui halaman pemesanan web.*`;
 
             const encodedMsg = encodeURIComponent(templateMsg);
-            const waNumber = '6282352412467'; // Target WhatsApp Admin Jastip
+            const waNumber = '6282352412467'; 
             
             window.open(`https://api.whatsapp.com/send?phone=${waNumber}&text=${encodedMsg}`, '_blank');
         }
 
-        // Toast Notification Sederhana
+        // Notifikasi Ringkas (Toast)
         function showToast(message) {
             const toast = document.createElement('div');
-            toast.className = "fixed bottom-24 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-xs px-4 py-2 rounded-full shadow-lg z-50 transition-opacity duration-300 opacity-100 flex items-center gap-2";
-            toast.innerHTML = `<i class="fa-solid fa-circle-check text-green-400"></i> ${message}`;
+            toast.className = "fixed bottom-24 left-1/2 -translate-x-1/2 bg-[#fe3781] text-white text-xs px-4 py-2.5 rounded-full shadow-lg z-50 transition-opacity duration-300 opacity-100 flex items-center gap-2 font-bold";
+            toast.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${message}`;
             document.body.appendChild(toast);
 
             setTimeout(() => {
@@ -535,7 +552,7 @@
             }, 2000);
         }
 
-        // Jalankan saat pertama dimuat
+        // Menampilkan Menu Saat Load Pertama
         document.addEventListener('DOMContentLoaded', () => {
             renderMenu();
         });
