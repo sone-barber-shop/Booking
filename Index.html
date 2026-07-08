@@ -1,0 +1,544 @@
+<Index.html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jastip Mie Gacoan</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 min-h-screen flex justify-center">
+
+    <!-- Container Utama (Simulasi Layar Mobile) -->
+    <div class="w-full max-w-md bg-white min-h-screen shadow-2xl relative flex flex-col pb-24">
+        
+        <!-- Header / Banner -->
+        <div class="relative bg-gradient-to-r from-red-600 to-yellow-500 text-white px-6 pt-8 pb-16 rounded-b-[2.5rem] shadow-lg">
+            <div class="flex justify-between items-center mb-4">
+                <div>
+                    <span class="text-xs font-semibold bg-white/20 px-3 py-1 rounded-full backdrop-blur-sm">Jasa Titip Terpercaya</span>
+                    <h1 class="text-2xl font-bold mt-1 tracking-wide">Mie Gacoan Express</h1>
+                </div>
+                <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-md">
+                    <i class="fa-solid fa-fire text-red-600 text-2xl animate-pulse"></i>
+                </div>
+            </div>
+            <p class="text-xs text-white/90 leading-relaxed font-light">Pesan menu Gacoan favoritmu tanpa ribet antre. Cukup pesan, bayar non-tunai, dan pesanan akan langsung diproses via WhatsApp!</p>
+        </div>
+
+        <!-- Menu Kategori / Filter -->
+        <div class="px-5 -mt-8 mb-6">
+            <div class="bg-white p-4 rounded-2xl shadow-md flex justify-around border border-gray-100">
+                <button onclick="filterMenu('semua')" id="btn-semua" class="cat-btn px-4 py-2 rounded-xl text-xs font-semibold bg-red-600 text-white transition-all">Semua</button>
+                <button onclick="filterMenu('mie')" id="btn-mie" class="cat-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all">Mie</button>
+                <button onclick="filterMenu('dimsum')" id="btn-dimsum" class="cat-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 transition-all">Dimsum</button>
+            </div>
+        </div>
+
+        <!-- Daftar Menu -->
+        <div class="px-5 space-y-4 flex-1">
+            <h2 class="text-sm font-bold text-slate-800 uppercase tracking-wider mb-2">Pilih Menu Favoritmu</h2>
+            
+            <div id="menu-container" class="space-y-4">
+                <!-- Menu items akan dimuat dinamis oleh Javascript -->
+            </div>
+        </div>
+
+        <!-- Sticky Bottom Bar (Akan muncul jika ada item di keranjang) -->
+        <div id="cart-bar" class="hidden fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md bg-white/95 backdrop-blur-md border-t border-slate-100 p-4 shadow-[0_-8px_20px_rgba(0,0,0,0.05)] rounded-t-3xl z-40">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-xs text-slate-400">Total Pembayaran</p>
+                    <p id="cart-bar-total" class="text-lg font-bold text-red-600">Rp 0</p>
+                </div>
+                <button onclick="toggleCheckoutModal(true)" class="bg-gradient-to-r from-red-600 to-yellow-500 hover:opacity-90 active:scale-95 transition-all text-white px-6 py-3 rounded-2xl font-semibold text-xs flex items-center gap-2 shadow-md">
+                    <i class="fa-solid fa-basket-shopping"></i> Lihat Keranjang (<span id="cart-bar-qty">0</span>)
+                </button>
+            </div>
+        </div>
+
+        <!-- Modal Checkout / Keranjang Belanja -->
+        <div id="checkout-modal" class="hidden fixed inset-0 bg-black/60 z-50 flex items-end justify-center transition-opacity duration-300">
+            <div class="w-full max-w-md bg-slate-50 rounded-t-[2.5rem] max-h-[90vh] overflow-y-auto p-6 shadow-2xl relative flex flex-col">
+                
+                <!-- Modal Header -->
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                        <i class="fa-solid fa-cart-shopping text-red-600"></i> Detail Keranjang
+                    </h3>
+                    <button onclick="toggleCheckoutModal(false)" class="w-8 h-8 bg-slate-200 rounded-full flex items-center justify-center text-slate-600 hover:bg-slate-300">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <!-- Daftar Item di Keranjang -->
+                <div id="cart-items-container" class="space-y-3 mb-6">
+                    <!-- Item keranjang dimasukkan dinamis -->
+                </div>
+
+                <!-- Formulir Data Penerima -->
+                <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm space-y-4 mb-6">
+                    <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider">Informasi Penerima</h4>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-500 mb-1">Nama Lengkap</label>
+                        <input type="text" id="cust-name" class="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-red-500" placeholder="Masukkan nama Anda">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-500 mb-1">Nomor WhatsApp</label>
+                        <input type="tel" id="cust-wa" class="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-red-500" placeholder="Contoh: 081234567xxx">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-500 mb-1">Alamat Pengiriman / Detail Lokasi</label>
+                        <textarea id="cust-address" rows="2" class="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-red-500" placeholder="Tuliskan alamat lengkap pengiriman"></textarea>
+                    </div>
+                </div>
+
+                <!-- Informasi Pembayaran Transfer -->
+                <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm space-y-4 mb-6">
+                    <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center justify-between">
+                        <span>Metode Pembayaran (Transfer)</span>
+                        <span class="text-[10px] bg-red-100 text-red-600 px-2 py-0.5 rounded-full">Wajib Non-Tunai</span>
+                    </h4>
+                    
+                    <div class="bg-slate-50 p-3 rounded-xl border border-dashed border-slate-200 flex items-center justify-between">
+                        <div>
+                            <p class="text-[10px] text-slate-400">Bank Mandiri</p>
+                            <p class="text-sm font-bold text-slate-800" id="rek-num">1113222333</p>
+                            <p class="text-[10px] text-slate-500">a.n. Jastip Gacoan Mandiri</p>
+                        </div>
+                        <button onclick="copyToClipboard()" class="bg-red-50 text-red-600 hover:bg-red-100 px-3 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-all">
+                            <i class="fa-regular fa-copy"></i> Salin
+                        </button>
+                    </div>
+
+                    <!-- Upload Bukti Transfer -->
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-500 mb-2">Upload Bukti Transfer <span class="text-red-500">*</span></label>
+                        <div class="relative border-2 border-dashed border-slate-200 hover:border-red-400 transition-colors rounded-xl p-4 flex flex-col items-center justify-center cursor-pointer bg-slate-50" id="upload-box">
+                            <input type="file" id="payment-proof" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer" onchange="previewProof(event)">
+                            <i class="fa-solid fa-cloud-arrow-up text-slate-400 text-xl mb-1" id="upload-icon"></i>
+                            <span class="text-xs text-slate-500 font-medium" id="upload-text">Klik untuk pilih gambar bukti TF</span>
+                            <span class="text-[9px] text-slate-400 mt-1">Format: JPG, PNG, WEBP</span>
+                        </div>
+                        <!-- Preview Gambar -->
+                        <div id="proof-preview-container" class="hidden mt-3 relative rounded-xl overflow-hidden border border-slate-200">
+                            <img id="proof-preview-img" src="" alt="Bukti Transfer" class="w-full max-h-40 object-cover">
+                            <button onclick="removeProof()" class="absolute top-2 right-2 bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center shadow-md hover:bg-red-700">
+                                <i class="fa-solid fa-trash-can text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ringkasan Pembayaran & Tombol Order -->
+                <div class="border-t border-slate-200 pt-4 space-y-3">
+                    <div class="flex justify-between items-center text-sm">
+                        <span class="text-slate-500">Subtotal Menu:</span>
+                        <span id="modal-subtotal" class="font-bold text-slate-800">Rp 0</span>
+                    </div>
+                    <div class="flex justify-between items-center text-sm border-b border-slate-100 pb-3">
+                        <span class="text-slate-500">Biaya Jastip:</span>
+                        <span class="font-bold text-emerald-600">FREE</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-slate-800 font-bold">Total Tagihan:</span>
+                        <span id="modal-total" class="text-xl font-black text-red-600">Rp 0</span>
+                    </div>
+
+                    <button onclick="sendOrder()" class="w-full mt-2 bg-emerald-600 hover:bg-emerald-700 text-white py-3.5 rounded-2xl font-bold text-sm flex items-center justify-center gap-2 shadow-lg active:scale-95 transition-all">
+                        <i class="fa-brands fa-whatsapp text-lg animate-bounce"></i> Kirim Pesanan via WhatsApp
+                    </button>
+                    <p class="text-[10px] text-center text-slate-400">Pastikan Anda telah melakukan pembayaran & mengunggah bukti transfer.</p>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- JavaScript Aplikasi -->
+    <script>
+        // Database Menu Gacoan asli dengan ilustrasi gambar berkualitas
+        const menuData = [
+            {
+                id: 'gacoan',
+                nama: 'MIE GACOAN (SENSASI PEDAS MANIS)',
+                harga: 17000,
+                kategori: 'mie',
+                desc: 'Mie pedas dengan bumbu kecap manis istimewa khas Gacoan tabur ayam cincang kasar.',
+                levels: [0, 1, 2, 3, 4, 6, 8],
+                image: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=500&auto=format&fit=crop&q=80'
+            },
+            {
+                id: 'hompimpa',
+                nama: 'MIE HOMPIMPA (SENSASI PEDAS GURIH)',
+                harga: 17000,
+                kategori: 'mie',
+                desc: 'Mie dengan cita rasa pedas asin yang gurih dipadu taburan ayam halus melimpah.',
+                levels: [1, 2, 3, 4, 6, 8],
+                image: 'https://images.unsplash.com/photo-1612927601601-6638404737ce?w=500&auto=format&fit=crop&q=80'
+            },
+            {
+                id: 'suit',
+                nama: 'MIE SUIT (TIDAK PEDAS, GURIH & ASIN)',
+                harga: 17000,
+                kategori: 'mie',
+                desc: 'Mie polos super gurih tanpa cabai, sangat pas untuk yang tidak suka pedas.',
+                levels: null,
+                image: 'https://images.unsplash.com/photo-1552611052-33e04de081de?w=500&auto=format&fit=crop&q=80'
+            },
+            {
+                id: 'pangsit',
+                nama: 'PANGSIT GORENG',
+                harga: 15000,
+                kategori: 'dimsum',
+                desc: 'Pangsit renyah dengan isian ayam giling bumbu spesial yang tebal di dalam.',
+                levels: null,
+                image: 'https://images.unsplash.com/photo-1541696432-82c6da8ce7bf?w=500&auto=format&fit=crop&q=80'
+            },
+            {
+                id: 'lumpia',
+                nama: 'LUMPIA UDANG',
+                harga: 15000,
+                kategori: 'dimsum',
+                desc: 'Kulit tahu renyah yang membungkus adonan udang lembut gurih berkualitas.',
+                levels: null,
+                image: 'https://images.unsplash.com/photo-1544025162-d76694265947?w=500&auto=format&fit=crop&q=80'
+            },
+            {
+                id: 'keju',
+                nama: 'UDANG KEJU',
+                harga: 15000,
+                kategori: 'dimsum',
+                desc: 'Udang goreng renyah dengan isian keju mozarella meleleh di setiap gigitan.',
+                levels: null,
+                image: 'https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=500&auto=format&fit=crop&q=80'
+            },
+            {
+                id: 'rambutan',
+                nama: 'UDANG RAMBUTAN',
+                harga: 15000,
+                kategori: 'dimsum',
+                desc: 'Bola-bola udang lembut dilapisi helaian mie garing mekar menyerupai rambutan.',
+                levels: null,
+                image: 'https://images.unsplash.com/photo-1522337360788-8b13edd793be?w=500&auto=format&fit=crop&q=80'
+            },
+            {
+                id: 'siomay',
+                nama: 'SIOMAY',
+                harga: 15000,
+                kategori: 'dimsum',
+                desc: 'Siomay kukus hangat bertekstur kenyal dengan kombinasi daging ayam dan udang.',
+                levels: null,
+                image: 'https://images.unsplash.com/photo-1625220194771-7ebedd0b7e1c?w=500&auto=format&fit=crop&q=80'
+            }
+        ];
+
+        let cart = [];
+        let activeFilter = 'semua';
+        let proofUploaded = false;
+
+        // Tampilkan Menu ke Layar
+        function renderMenu() {
+            const container = document.getElementById('menu-container');
+            container.innerHTML = '';
+
+            const filtered = menuData.filter(item => activeFilter === 'semua' || item.kategori === activeFilter);
+
+            filtered.forEach(item => {
+                const hasLevels = item.levels !== null;
+                let levelSelectorHtml = '';
+
+                if (hasLevels) {
+                    levelSelectorHtml = `
+                        <div class="mt-3 flex items-center gap-2">
+                            <label class="text-[10px] font-bold text-slate-500 uppercase">Pilih Level:</label>
+                            <select id="level-${item.id}" class="bg-slate-50 border border-slate-200 text-xs rounded-lg px-2 py-1 focus:outline-none focus:border-red-500 text-slate-700 font-semibold">
+                                ${item.levels.map(lvl => `<option value="${lvl}">Level ${lvl}</option>`).join('')}
+                            </select>
+                        </div>
+                    `;
+                }
+
+                container.innerHTML += `
+                    <div class="bg-white rounded-3xl p-4 border border-slate-100 shadow-sm flex gap-4 hover:shadow-md transition-all duration-300">
+                        <div class="w-24 h-24 rounded-2xl overflow-hidden flex-shrink-0 bg-slate-100 border border-slate-100">
+                            <img src="${item.image}" alt="${item.nama}" class="w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1 flex flex-col justify-between">
+                            <div>
+                                <h3 class="text-xs font-bold text-slate-800 leading-tight">${item.nama}</h3>
+                                <p class="text-[10px] text-slate-400 mt-1 line-clamp-2 leading-relaxed">${item.desc}</p>
+                                ${levelSelectorHtml}
+                            </div>
+                            <div class="flex justify-between items-center mt-3">
+                                <span class="text-xs font-bold text-red-600">Rp ${item.harga.toLocaleString('id-ID')}</span>
+                                <button onclick="addToCart('${item.id}')" class="bg-red-600 hover:bg-red-700 active:scale-95 transition-all text-white text-[11px] font-bold px-4 py-1.5 rounded-xl flex items-center gap-1">
+                                    <i class="fa-solid fa-plus text-[9px]"></i> Tambah
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // Filter Menu berdasarkan Kategori
+        function filterMenu(kategori) {
+            activeFilter = kategori;
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.classList.remove('bg-red-600', 'text-white');
+                btn.classList.add('bg-slate-100', 'text-slate-600');
+            });
+
+            const activeBtn = document.getElementById(`btn-${kategori}`);
+            activeBtn.classList.remove('bg-slate-100', 'text-slate-600');
+            activeBtn.classList.add('bg-red-600', 'text-white');
+
+            renderMenu();
+        }
+
+        // Tambahkan ke Keranjang
+        function addToCart(itemId) {
+            const item = menuData.find(m => m.id === itemId);
+            let selectedLevel = null;
+
+            if (item.levels) {
+                selectedLevel = document.getElementById(`level-${itemId}`).value;
+            }
+
+            // Identifikasi unik berdasarkan ID + Level untuk pengelompokan varian di keranjang
+            const cartKey = selectedLevel !== null ? `${itemId}-L${selectedLevel}` : itemId;
+            const existingIndex = cart.findIndex(c => c.key === cartKey);
+
+            if (existingIndex > -1) {
+                cart[existingIndex].qty += 1;
+            } else {
+                cart.push({
+                    key: cartKey,
+                    id: item.id,
+                    nama: item.nama,
+                    harga: item.harga,
+                    level: selectedLevel,
+                    qty: 1
+                });
+            }
+
+            updateCartUI();
+            showToast(`Ditambahkan ke keranjang!`);
+        }
+
+        // Kurangi / Atur Qty Item di Keranjang
+        function changeQty(cartKey, change) {
+            const index = cart.findIndex(c => c.key === cartKey);
+            if (index > -1) {
+                cart[index].qty += change;
+                if (cart[index].qty <= 0) {
+                    cart.splice(index, 1);
+                }
+                updateCartUI();
+                renderCartModalItems();
+            }
+        }
+
+        // Hapus Item
+        function deleteCartItem(cartKey) {
+            cart = cart.filter(c => c.key !== cartKey);
+            updateCartUI();
+            renderCartModalItems();
+        }
+
+        // Perbarui Status Keranjang (Sticker Bottom Bar)
+        function updateCartUI() {
+            const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+            const totalPrice = cart.reduce((sum, item) => sum + (item.harga * item.qty), 0);
+
+            const cartBar = document.getElementById('cart-bar');
+            if (totalQty > 0) {
+                cartBar.classList.remove('hidden');
+                document.getElementById('cart-bar-qty').innerText = totalQty;
+                document.getElementById('cart-bar-total').innerText = `Rp ${totalPrice.toLocaleString('id-ID')}`;
+            } else {
+                cartBar.classList.add('hidden');
+                toggleCheckoutModal(false);
+            }
+        }
+
+        // Munculkan / Sembunyikan Modal Checkout
+        function toggleCheckoutModal(show) {
+            const modal = document.getElementById('checkout-modal');
+            if (show) {
+                modal.classList.remove('hidden');
+                renderCartModalItems();
+            } else {
+                modal.classList.add('hidden');
+            }
+        }
+
+        // Susun item di dalam keranjang modal
+        function renderCartModalItems() {
+            const container = document.getElementById('cart-items-container');
+            container.innerHTML = '';
+
+            let subtotal = 0;
+
+            if (cart.length === 0) {
+                container.innerHTML = `<p class="text-center text-slate-400 text-xs py-4">Keranjang kosong</p>`;
+                return;
+            }
+
+            cart.forEach(item => {
+                const totalItemPrice = item.harga * item.qty;
+                subtotal += totalItemPrice;
+                const levelLabel = item.level !== null ? `<span class="bg-red-50 text-red-600 text-[9px] font-bold px-2 py-0.5 rounded-md">Level ${item.level}</span>` : '';
+
+                container.innerHTML += `
+                    <div class="bg-white p-3 rounded-2xl border border-slate-100 shadow-sm flex items-center justify-between gap-3">
+                        <div class="flex-1">
+                            <div class="flex items-center gap-1.5 flex-wrap">
+                                <h4 class="text-xs font-bold text-slate-800 leading-tight">${item.nama}</h4>
+                                ${levelLabel}
+                            </div>
+                            <p class="text-xs font-bold text-red-600 mt-1">Rp ${totalItemPrice.toLocaleString('id-ID')}</p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="flex items-center gap-2 bg-slate-100 rounded-lg p-1">
+                                <button onclick="changeQty('${item.key}', -1)" class="w-5 h-5 rounded-md bg-white hover:bg-slate-200 text-xs font-bold text-slate-600 flex items-center justify-center shadow-sm">-</button>
+                                <span class="text-xs font-bold w-4 text-center text-slate-800">${item.qty}</span>
+                                <button onclick="changeQty('${item.key}', 1)" class="w-5 h-5 rounded-md bg-white hover:bg-slate-200 text-xs font-bold text-slate-600 flex items-center justify-center shadow-sm">+</button>
+                            </div>
+                            <button onclick="deleteCartItem('${item.key}')" class="text-slate-400 hover:text-red-600">
+                                <i class="fa-solid fa-trash-can text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            document.getElementById('modal-subtotal').innerText = `Rp ${subtotal.toLocaleString('id-ID')}`;
+            document.getElementById('modal-total').innerText = `Rp ${subtotal.toLocaleString('id-ID')}`;
+        }
+
+        // Salin No Rekening Mandiri
+        function copyToClipboard() {
+            const textToCopy = document.getElementById('rek-num').innerText;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                showToast("Nomor rekening berhasil disalin!");
+            }).catch(err => {
+                showToast("Gagal menyalin rekening!");
+            });
+        }
+
+        // Preview Bukti Transfer
+        function previewProof(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const previewContainer = document.getElementById('proof-preview-container');
+                    const previewImg = document.getElementById('proof-preview-img');
+                    const uploadBox = document.getElementById('upload-box');
+
+                    previewImg.src = e.target.result;
+                    previewContainer.classList.remove('hidden');
+                    uploadBox.classList.add('hidden');
+                    proofUploaded = true;
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Hapus Bukti Transfer ter-upload
+        function removeProof() {
+            document.getElementById('payment-proof').value = "";
+            document.getElementById('proof-preview-container').classList.add('hidden');
+            document.getElementById('upload-box').classList.remove('hidden');
+            proofUploaded = false;
+        }
+
+        // Kirim Data Pesanan via WhatsApp
+        function sendOrder() {
+            const name = document.getElementById('cust-name').value.trim();
+            const wa = document.getElementById('cust-wa').value.trim();
+            const address = document.getElementById('cust-address').value.trim();
+
+            if (!name || !wa || !address) {
+                alert("Mohon lengkapi data penerima (Nama, No WA, dan Alamat) terlebih dahulu!");
+                return;
+            }
+
+            if (!proofUploaded) {
+                alert("Mohon lakukan pembayaran dan unggah foto Bukti Transfer untuk memesan!");
+                return;
+            }
+
+            let orderDetailsStr = '';
+            let grandTotal = 0;
+
+            cart.forEach((item, index) => {
+                const totalItemPrice = item.harga * item.qty;
+                grandTotal += totalItemPrice;
+                const levelDetail = item.level !== null ? ` (Level ${item.level})` : '';
+                orderDetailsStr += `${index + 1}. *${item.nama}${levelDetail}* x${item.qty} - Rp ${totalItemPrice.toLocaleString('id-ID')}\n`;
+            });
+
+            const templateMsg = `*PESANAN JASTIP MIE GACOAN*\n` +
+                                `=========================\n\n` +
+                                `*Data Penerima:*\n` +
+                                `• Nama: ${name}\n` +
+                                `• No HP/WA: ${wa}\n` +
+                                `• Alamat: ${address}\n\n` +
+                                `*Daftar Pesanan:*\n` +
+                                `${orderDetailsStr}\n` +
+                                `*Metode Bayar:* Transfer Bank Mandiri (1113222333)\n` +
+                                `*Status Bukti:* Terlampir di form\n\n` +
+                                `*Total Bayar:* *Rp ${grandTotal.toLocaleString('id-ID')}*\n\n` +
+                                `=========================\n` +
+                                `_Mohon segera mengirimkan foto bukti transfer juga pada pesan ini._`;
+
+            const encodedMsg = encodeURIComponent(templateMsg);
+            const waNumber = '6282352412467'; // Target WhatsApp Admin Jastip
+            
+            window.open(`https://api.whatsapp.com/send?phone=${waNumber}&text=${encodedMsg}`, '_blank');
+        }
+
+        // Toast Notification Sederhana
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = "fixed bottom-24 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-xs px-4 py-2 rounded-full shadow-lg z-50 transition-opacity duration-300 opacity-100 flex items-center gap-2";
+            toast.innerHTML = `<i class="fa-solid fa-circle-check text-green-400"></i> ${message}`;
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.classList.add('opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 2000);
+        }
+
+        // Jalankan saat pertama dimuat
+        document.addEventListener('DOMContentLoaded', () => {
+            renderMenu();
+        });
+    </script>
+</body>
+</html>
